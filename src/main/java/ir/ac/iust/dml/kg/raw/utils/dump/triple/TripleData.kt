@@ -7,8 +7,9 @@ data class TripleData(
       var subject: String? = null,
       var predicate: String? = null,
       @SerializedName("template_name")
+      var templateNameFull: String? = null,
       var templateName: String? = null,
-      @SerializedName("type")
+      @SerializedName("template_type")
       var templateType: String? = null,
       @SerializedName("object")
       var objekt: String? = null
