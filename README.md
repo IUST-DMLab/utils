@@ -3,4 +3,4 @@
 * Maven
 
 # How to use
-Just use static functions of Normalizer, SentenceTokenizer, WordTokenizer, ... classes.
+Just refer to Tester.java to find out how to use each tool.
