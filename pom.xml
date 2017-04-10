@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ Copyright (c) 2014.
-  ~ Samim Rayaneh Co.
-  ~ Created by maJid~ASGARI
-  -->
-
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -32,7 +26,6 @@
   </distributionManagement>
 
   <build>
-    <finalName>jhazm</finalName>
     <plugins>
       <plugin>
         <groupId>org.jetbrains.kotlin</groupId>
