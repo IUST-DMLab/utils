@@ -10,6 +10,7 @@ import ir.ac.iust.dml.kg.raw.utils.dump.wiki.WikiDumpWriter;
 import kotlin.text.Regex;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -48,6 +49,23 @@ public class Tester {
   public void languageChecker() {
     assert LanguageChecker.INSTANCE.isEnglish("I'm Majid");
     assert !LanguageChecker.INSTANCE.isEnglish("من مجید یا Majid هستم.");
+  }
+
+  @Test
+  public void path() {
+    Path path = ConfigReader.INSTANCE.getPath("~/pkg");
+    assert path.startsWith(System.getProperty("user.home"));
+    if (File.separatorChar == '/') {
+      System.out.println("I am in linux-like OS");
+      path = ConfigReader.INSTANCE.getPath("/test");
+      assert path.toAbsolutePath().toString().equals("/test");
+    } else {
+      System.out.println("I am in windows-like OS");
+      path = ConfigReader.INSTANCE.getPath("C:\\test");
+      assert path.toAbsolutePath().toString().equals("C:\\test");
+      path = ConfigReader.INSTANCE.getPath("C://test");
+      assert path.toAbsolutePath().toString().equals("C:\\test");
+    }
   }
 
   @Test

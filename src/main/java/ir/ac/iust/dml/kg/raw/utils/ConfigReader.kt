@@ -1,6 +1,7 @@
 package ir.ac.iust.dml.kg.raw.utils
 
 import org.slf4j.LoggerFactory
+import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.nio.file.Files
@@ -10,71 +11,80 @@ import java.util.*
 
 object ConfigReader {
 
-   val logger = LoggerFactory.getLogger(this.javaClass)!!
+  val logger = LoggerFactory.getLogger(this.javaClass)!!
 
-   fun getPath(key: String, defaultValue: String) = getPath(getString(key, defaultValue))
+  fun getPath(key: String, defaultValue: String) = getPath(getString(key, defaultValue))
 
-   fun getString(key: String, defaultValue: String): String {
-      val p = getConfig(mapOf(key to defaultValue))
-      return p.getProperty(key)
-   }
+  fun getString(key: String, defaultValue: String): String {
+    val p = getConfig(mapOf(key to defaultValue))
+    return p.getProperty(key)
+  }
 
-   fun getInt(key: String, defaultValue: String): Int {
-      val p = getConfig(mapOf(key to defaultValue))
-      return p.getProperty(key).toInt()
-   }
+  fun getInt(key: String, defaultValue: String): Int {
+    val p = getConfig(mapOf(key to defaultValue))
+    return p.getProperty(key).toInt()
+  }
 
-   fun getLong(key: String, defaultValue: String): Long {
-      val p = getConfig(mapOf(key to defaultValue))
-      return p.getProperty(key).toLong()
-   }
+  fun getLong(key: String, defaultValue: String): Long {
+    val p = getConfig(mapOf(key to defaultValue))
+    return p.getProperty(key).toLong()
+  }
 
-   fun getBoolean(key: String, defaultValue: String): Boolean {
-      val p = getConfig(mapOf(key to defaultValue))
-      return p.getProperty(key).toBoolean()
-   }
+  fun getBoolean(key: String, defaultValue: String): Boolean {
+    val p = getConfig(mapOf(key to defaultValue))
+    return p.getProperty(key).toBoolean()
+  }
 
-   fun getConfig(vararg keyValues: String): Properties {
-      val map = mutableMapOf<String, String>()
-      for (i in 0..keyValues.size / 2) map[keyValues[i]] = keyValues[i + 1]
-      return getConfig(map)
-   }
+  fun getConfig(vararg keyValues: String): Properties {
+    val map = mutableMapOf<String, String>()
+    for (i in 0..keyValues.size / 2) map[keyValues[i]] = keyValues[i + 1]
+    return getConfig(map)
+  }
 
-   fun getConfig(keyValues: Map<String, Any>): Properties {
-      val configPath = Paths.get(System.getProperty("user.home")).resolve(".pkg").resolve("config.properties")
+  fun getConfig(keyValues: Map<String, Any>): Properties {
+    val configPath =
+       if (Files.exists(Paths.get("/srv/.pkg/config.properties")))
+         Paths.get("/srv/.pkg/config.properties")
+       else
+         Paths.get(System.getProperty("user.home")).resolve(".pkg").resolve("config.properties")
 
-      Files.createDirectories(configPath.parent)
+    Files.createDirectories(configPath.parent)
 
-      val config = Properties()
+    val config = Properties()
 
-      if (!Files.exists(configPath)) logger.error("There is no file ${configPath.toAbsolutePath()} existed.")
-      else
-         FileInputStream(configPath.toFile()).use {
-            try {
-               config.load(it)
-            } catch (e: Throwable) {
-               logger.error("error in reading config file ${configPath.toAbsolutePath()}.", e)
-            }
-         }
-
-      keyValues.forEach {
-         try {
-            config.getProperty(it.key)!!
-         } catch (e: Throwable) {
-            config[it.key] = it.value
-         }
+    if (!Files.exists(configPath)) logger.error("There is no file ${configPath.toAbsolutePath()} existed.")
+    else
+      FileInputStream(configPath.toFile()).use {
+        try {
+          config.load(it)
+        } catch (e: Throwable) {
+          logger.error("error in reading config file ${configPath.toAbsolutePath()}.", e)
+        }
       }
 
-      FileOutputStream(configPath.toFile()).use {
-         config.store(it, null)
+    keyValues.forEach {
+      try {
+        config.getProperty(it.key)!!
+      } catch (e: Throwable) {
+        config[it.key] = it.value
       }
+    }
 
-      return config
-   }
+    FileOutputStream(configPath.toFile()).use {
+      config.store(it, null)
+    }
 
-   fun getPath(string: String): Path {
-      val splits = string.split("/")
-      val first = if (splits[0] == "~") System.getProperty("user.home")!! else splits[0]
-      return Paths.get(first, *splits.subList(1, splits.size).toTypedArray())
-   }
+    return config
+  }
+
+  fun getPath(string: String): Path {
+    if (string.startsWith('/')) return Paths.get(string)
+    var s =
+       if (string.startsWith('~'))
+         string.replace("~", System.getProperty("user.home")!!)
+       else string
+    if (s.contains("\\")) return Paths.get(string)
+    s = s.replace('/', File.separatorChar)
+    return Paths.get(s)
+  }
 }
