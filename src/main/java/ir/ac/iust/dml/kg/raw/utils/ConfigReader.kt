@@ -83,7 +83,7 @@ object ConfigReader {
        if (string.startsWith('~'))
          string.replace("~", System.getProperty("user.home")!!)
        else string
-    if (s.contains("\\")) return Paths.get(string)
+    if (s.contains("/")) return Paths.get(s)
     s = s.replace('/', File.separatorChar)
     return Paths.get(s)
   }
