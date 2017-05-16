@@ -6,7 +6,7 @@
 
   <groupId>ir.ac.iust.dml.kg</groupId>
   <artifactId>utils</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
   <name>Knowledge Graph Raw Text Extractor Common Utils</name>
   <packaging>jar</packaging>
   <description>Utils of Knowledge Graph Project</description>
@@ -73,6 +73,11 @@
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
       <version>2.8.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>20.0</version>
     </dependency>
   </dependencies>
 </project>
