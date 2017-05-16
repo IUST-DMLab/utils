@@ -13,12 +13,15 @@ object PrefixService {
   val KG_AUTO_PROPERTY_PREFIX = "fkgp"
 
   val PROPERTY_URI = "rdf:Property"
+  val TYPE_OF_ALL_RESOURCES = "rdfs:Resource"
   val PROPERTY_LABEL_URL = "rdfs:label"
   val RESOURCE_LABEL_URL = "rdfs:label"
   val PROPERTY_DOMAIN_URL = "rdfs:domain"
   val TYPE_URL = "rdf:type"
   val PROPERTY_VARIANT_LABEL_URL = "fkgo:variantLabel"
-  val INSTANCE_OF_URL = "fkgo:instanceOf"
+  val INSTANCE_OF_URL = "rdfs:instanceOf"
+  val DISAMBIGUATED_FROM_URI = "fkgo:wikiDisambiguatedFrom"
+  val REDIRECTS_URI = "fkgo:wikiPageRedirects"
 
   init {
     reload()
