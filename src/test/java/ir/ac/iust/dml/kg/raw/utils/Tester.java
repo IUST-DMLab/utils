@@ -22,12 +22,12 @@ public class Tester {
 
   @Test
   public void pathWalker() throws IOException {
-    final Path p = Paths.get(System.getProperty("user.home"), "test");
+    final Path p = Paths.get(System.getProperty("user.home"), ".pkg", "utils-test");
     Files.createDirectories(p);
-    Files.createFile(p.resolve("1.txt"));
-    Files.createFile(p.resolve("2.txt"));
+    if (!Files.exists(p.resolve("1.txt"))) Files.createFile(p.resolve("1.txt"));
+    if (!Files.exists(p.resolve("2.txt"))) Files.createFile(p.resolve("2.txt"));
     Files.createDirectories(p.resolve("folder"));
-    Files.createFile(p.resolve("folder").resolve("3.txt"));
+    if (!Files.exists(p.resolve("folder").resolve("3.txt"))) Files.createFile(p.resolve("folder").resolve("3.txt"));
 
     List<Path> pathList = PathWalker.INSTANCE.getPath(p, null);
     assert pathList.size() == 3;
