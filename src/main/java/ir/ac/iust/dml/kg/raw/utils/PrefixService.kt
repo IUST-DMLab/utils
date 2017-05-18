@@ -12,13 +12,13 @@ object PrefixService {
   val KG_ONTOLOGY_PREFIX = "fkgo"
   val KG_AUTO_PROPERTY_PREFIX = "fkgp"
 
-  val TYPE_OF_ALL_PROPERTIES = "rdf:Property"
-  val TYPE_OF_ALL_RESOURCES = "rdfs:Resource"
-  val TYPE_OF_ALL_CLASSES = "owl:Class"
+  val TYPE_OF_ALL_PROPERTIES = "owl:ObjectProperty"
+  // "rdfs:Resource" equivalent to "owl:Thing" in OWL:Full
+  val TYPE_OF_ALL_RESOURCES = "owl:NamedIndividual"
+  val TYPE_OF_ALL_CLASSES = "owl:Class" // equivalent to "rdfs:Class" in OWL:Full
   val SUB_CLASS_OF = "rdfs:subClassOf"
   val CLASS_TREE = "fkgo:classTree"
-  val PROPERTY_LABEL_URL = "rdfs:label"
-  val RESOURCE_LABEL_URL = "rdfs:label"
+  val LABEL_URL = "rdfs:label"
   val PROPERTY_DOMAIN_URL = "rdfs:domain"
   val TYPE_URL = "rdf:type"
   val VARIANT_LABEL_URL = "fkgo:variantLabel"
