@@ -61,7 +61,9 @@ object PrefixService {
     return if (address == null) splits[1] else address + splits[1]
   }
 
-  fun getFkgResourceUrl(name: String) = prefixNames[KG_RESOURCE_PREFIX] + name.replace(' ', '_')
+  val adjacentSpaceRegex = Regex("([\u00A0]|\\s)+")
+
+  fun getFkgResourceUrl(name: String) = prefixNames[KG_RESOURCE_PREFIX] + name.replace(adjacentSpaceRegex, "_")
 
   fun getFkgResource(name: String) = KG_RESOURCE_PREFIX + ":" + name.replace(' ', '_')
 
