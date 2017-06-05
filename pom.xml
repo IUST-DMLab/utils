@@ -6,7 +6,7 @@
 
   <groupId>ir.ac.iust.dml.kg</groupId>
   <artifactId>utils</artifactId>
-  <version>0.2.0</version>
+  <version>0.2.1</version>
   <name>Knowledge Graph Raw Text Extractor Common Utils</name>
   <packaging>jar</packaging>
   <description>Utils of Knowledge Graph Project</description>
