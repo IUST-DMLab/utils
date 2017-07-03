@@ -11,6 +11,9 @@ object PrefixService {
   val KG_RESOURCE_PREFIX = "fkgr"
   val KG_ONTOLOGY_PREFIX = "fkgo"
   val KG_AUTO_PROPERTY_PREFIX = "fkgp"
+  val KG_MANUAL_PREFIX = "fkgm"
+  val KG_TABLE_PREFIX = "fkgl"
+  val KG_RAW_TEXT_PREFIX = "fkgt"
 
   val TYPE_OF_ALL_PROPERTIES = "owl:ObjectProperty"
   // "rdfs:Resource" equivalent to "owl:Thing" in OWL:Full
@@ -62,6 +65,18 @@ object PrefixService {
   }
 
   val adjacentSpaceRegex = Regex("([\u00A0]|\\s)+")
+
+  fun getFkgManualUrl(name: String) = prefixNames[KG_MANUAL_PREFIX] + name.replace(adjacentSpaceRegex, "_")
+
+  fun getFkgManual(name: String) = KG_MANUAL_PREFIX + ":" + name.replace(' ', '_')
+
+  fun getFkgTableUrl(name: String) = prefixNames[KG_TABLE_PREFIX] + name.replace(adjacentSpaceRegex, "_")
+
+  fun getFkgTable(name: String) = KG_TABLE_PREFIX + ":" + name.replace(' ', '_')
+
+  fun getFkgRawTextUrl(name: String) = prefixNames[KG_RAW_TEXT_PREFIX] + name.replace(adjacentSpaceRegex, "_")
+
+  fun getFkgRawText(name: String) = KG_RAW_TEXT_PREFIX + ":" + name.replace(' ', '_')
 
   fun getFkgResourceUrl(name: String) = prefixNames[KG_RESOURCE_PREFIX] + name.replace(adjacentSpaceRegex, "_")
 
