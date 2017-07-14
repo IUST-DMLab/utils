@@ -1,5 +1,6 @@
 package ir.ac.iust.dml.kg.raw.utils
 
+import nu.studer.java.util.OrderedProperties
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.FileInputStream
@@ -7,7 +8,7 @@ import java.io.FileOutputStream
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.util.*
+
 
 object ConfigReader {
 
@@ -35,13 +36,13 @@ object ConfigReader {
     return p.getProperty(key).toBoolean()
   }
 
-  fun getConfig(vararg keyValues: String): Properties {
+  fun getConfig(vararg keyValues: String): OrderedProperties {
     val map = mutableMapOf<String, String>()
     for (i in 0..keyValues.size / 2) map[keyValues[i]] = keyValues[i + 1]
     return getConfig(map)
   }
 
-  fun getConfig(keyValues: Map<String, Any>): Properties {
+  fun getConfig(keyValues: Map<String, Any>): OrderedProperties {
     val configPath =
        if (Files.exists(Paths.get("/srv/.pkg/config.properties")))
          Paths.get("/srv/.pkg/config.properties")
@@ -50,7 +51,7 @@ object ConfigReader {
 
     Files.createDirectories(configPath.parent)
 
-    val config = Properties()
+    val config = OrderedProperties()
 
     if (!Files.exists(configPath)) logger.error("There is no file ${configPath.toAbsolutePath()} existed.")
     else
@@ -66,7 +67,7 @@ object ConfigReader {
       try {
         config.getProperty(it.key)!!
       } catch (e: Throwable) {
-        config[it.key] = it.value
+        config.setProperty(it.key, it.value.toString())
       }
     }
 
