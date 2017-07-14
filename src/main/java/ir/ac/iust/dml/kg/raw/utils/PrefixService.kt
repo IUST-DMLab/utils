@@ -16,6 +16,7 @@ object PrefixService {
   val KG_RAW_TEXT_PREFIX = "fkgt"
 
   val TYPE_OF_ALL_PROPERTIES = "owl:ObjectProperty"
+  val TYPE_OF_ALL_NOT_MAPPED_PROPERTIES = "rdf:Property"
   // "rdfs:Resource" equivalent to "owl:Thing" in OWL:Full
   val TYPE_OF_ALL_RESOURCES = "owl:NamedIndividual"
   val TYPE_OF_ALL_CLASSES = "owl:Class" // equivalent to "rdfs:Class" in OWL:Full
