@@ -1,6 +1,5 @@
 package ir.ac.iust.dml.kg.raw.utils
 
-import com.google.common.base.CaseFormat
 import java.util.*
 
 object PrefixService {
@@ -83,19 +82,26 @@ object PrefixService {
 
   fun getFkgResource(name: String) = KG_RESOURCE_PREFIX + ":" + name.replace(' ', '_')
 
-  fun getFkgOntologyPropertyUrl(name: String) =
-      prefixNames[KG_ONTOLOGY_PREFIX] +
-          CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, name.replace(' ', '_'))
+  fun camelCase(uppercase: Boolean, string: String): String {
+    val builder = StringBuilder()
+    string.forEachIndexed { index, c ->
+      if (index == 0) builder.append(if (uppercase) c.toUpperCase() else c)
+      else if (string[index - 1] == '_') builder.append(c.toUpperCase())
+      else {
+        val char = string[index]
+        if (char != '_') builder.append(char)
+      }
+    }
+    return builder.toString()
+  }
 
-  fun getFkgOntologyClassUrl(name: String) =
-      prefixNames[KG_ONTOLOGY_PREFIX] +
-          CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, name.replace(' ', '_'))
+  fun getFkgOntologyPropertyUrl(name: String) = prefixNames[KG_ONTOLOGY_PREFIX] + camelCase(false, name.replace(' ', '_'))
 
-  fun getFkgOntologyProperty(name: String) =
-      KG_ONTOLOGY_PREFIX + ":" + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, name.replace(' ', '_'))
+  fun getFkgOntologyClassUrl(name: String) = prefixNames[KG_ONTOLOGY_PREFIX] + camelCase(true, name.replace(' ', '_'))
 
-  fun getFkgOntologyClass(name: String) =
-      KG_ONTOLOGY_PREFIX + ":" + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, name.replace(' ', '_'))
+  fun getFkgOntologyProperty(name: String) = KG_ONTOLOGY_PREFIX + ":" + camelCase(false, name.replace(' ', '_'))
+
+  fun getFkgOntologyClass(name: String) = KG_ONTOLOGY_PREFIX + ":" + camelCase(true, name.replace(' ', '_'))
 
   fun convertFkgResourceUrl(url: String): String {
     if (url.startsWith("http://fa.wikipedia.org/wiki/")
