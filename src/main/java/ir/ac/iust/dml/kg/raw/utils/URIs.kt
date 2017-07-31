@@ -16,25 +16,25 @@ object URIs {
 
   private val adjacentSpaceRegex = Regex("([\u00A0]|\\s)+")
 
-  private val typeOfAllPropertiesPrefixed = "owl:ObjectProperty"
-  private val typeOfAllNotMappedPropertiesPrefixed = "rdf:Property"
+  val typeOfAllPropertiesPrefixed = "owl:ObjectProperty"
+  val typeOfAllNotMappedPropertiesPrefixed = "rdf:Property"
   // "rdfs:Resource" equivalent to "owl:Thing" in OWL:Full
-  private val typeOfAllResourcesPrefixed = "owl:NamedIndividual"
-  private val typeOfAllClassesPrefixed = "owl:Class" // equivalent to "rdfs:Class" in OWL:Full
-  private val subClassOfPrefixed = "rdfs:subClassOf"
-  private val commentPrefixed = "rdfs:comment"
-  private val classTreePrefixed = "fkgo:classTree"
-  private val labelPrefixed = "rdfs:label"
-  private val propertyDomainPrefixed = "rdfs:domain"
-  private val propertyRangePrefixed = "rdfs:range"
-  private val equivalentPropertyPrefixed = "owl:equivalentProperty"
-  private val equivalentClassPrefixed = "owl:equivalentClass"
-  private val disjointWithPrefixed = "owl:disjointWith"
-  private val typePrefixed = "rdf:type"
-  private val variantLabelPrefixed = "fkgo:variantLabel"
-  private val instanceOfPrefixed = "rdf:instanceOf"
-  private val disambiguatedFromPrefixed = "fkgo:wikiDisambiguatedFrom"
-  private val redirectPrefixed = "fkgo:wikiPageRedirects"
+  val typeOfAllResourcesPrefixed = "owl:NamedIndividual"
+  val typeOfAllClassesPrefixed = "owl:Class" // equivalent to "rdfs:Class" in OWL:Full
+  val subClassOfPrefixed = "rdfs:subClassOf"
+  val commentPrefixed = "rdfs:comment"
+  val classTreePrefixed = "fkgo:classTree"
+  val labelPrefixed = "rdfs:label"
+  val propertyDomainPrefixed = "rdfs:domain"
+  val propertyRangePrefixed = "rdfs:range"
+  val equivalentPropertyPrefixed = "owl:equivalentProperty"
+  val equivalentClassPrefixed = "owl:equivalentClass"
+  val disjointWithPrefixed = "owl:disjointWith"
+  val typePrefixed = "rdf:type"
+  val variantLabelPrefixed = "fkgo:variantLabel"
+  val instanceOfPrefixed = "rdf:instanceOf"
+  val disambiguatedFromPrefixed = "fkgo:wikiDisambiguatedFrom"
+  val redirectPrefixed = "fkgo:wikiPageRedirects"
 
   val typeOfAllProperties: String
   val typeOfAllNotMappedProperties: String
