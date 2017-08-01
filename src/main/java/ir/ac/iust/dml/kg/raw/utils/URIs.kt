@@ -7,8 +7,10 @@ object URIs {
   val prefixNames = mutableMapOf<String, String>()
   val prefixAddresses = mutableMapOf<String, String>()
 
+  val fkgMainPrefix = "fkg"
   val fkgResourcePrefix = "fkgr"
   val fkgOntologyPrefix = "fkgo"
+  val fkgDataTypePrefix = "fkgd"
   val fkgNotMappedPropertyPrefix = "fkgp"
   val fkgManualTriplePrefix = "fkgm"
   val fkgTablePrefix = "fkgl"
@@ -28,7 +30,10 @@ object URIs {
   val classTreePrefixed = "fkgo:classTree"
   val labelPrefixed = "rdfs:label"
   val propertyDomainPrefixed = "rdfs:domain"
+  val propertyAutoDomainPrefixed = "fkgo:autoDomain"
   val propertyRangePrefixed = "rdfs:range"
+  val propertyAutoRangePrefixed = "fkgo:autoRange"
+  val wasDerivedFromPrefixed = "prov:wasDerivedFrom"
   val equivalentPropertyPrefixed = "owl:equivalentProperty"
   val equivalentClassPrefixed = "owl:equivalentClass"
   val disjointWithPrefixed = "owl:disjointWith"
@@ -48,7 +53,10 @@ object URIs {
   val classTree: String
   val label: String
   val propertyDomain: String
+  val propertyAutoDomain: String
   val propertyRange: String
+  val propertyAutoRange: String
+  val wasDerivedFrom: String
   val equivalentProperty: String
   val equivalentClass: String
   val disjointWith: String
@@ -70,7 +78,10 @@ object URIs {
     classTree = prefixedToUri(classTreePrefixed)!!
     label = prefixedToUri(labelPrefixed)!!
     propertyDomain = prefixedToUri(propertyDomainPrefixed)!!
+    propertyAutoDomain = prefixedToUri(propertyAutoDomainPrefixed)!!
     propertyRange = prefixedToUri(propertyRangePrefixed)!!
+    propertyAutoRange = prefixedToUri(propertyAutoRangePrefixed)!!
+    wasDerivedFrom = prefixedToUri(wasDerivedFromPrefixed)!!
     equivalentProperty = prefixedToUri(equivalentPropertyPrefixed)!!
     equivalentClass = prefixedToUri(equivalentClassPrefixed)!!
     disjointWith = prefixedToUri(disjointWithPrefixed)!!
@@ -126,11 +137,19 @@ object URIs {
 
   fun getFkgOntologyPropertyUri(name: String) = prefixNames[fkgOntologyPrefix] + camelCase(false, name.replace(' ', '_'))
 
-  fun getFkgOntologyClassUri(name: String) = prefixNames[fkgOntologyPrefix] + camelCase(true, name.replace(' ', '_'))
-
   fun getFkgOntologyPropertyPrefixed(name: String) = fkgOntologyPrefix + ":" + camelCase(false, name.replace(' ', '_'))
 
+  fun getFkgOntologyClassUri(name: String) = prefixNames[fkgOntologyPrefix] + camelCase(true, name.replace(' ', '_'))
+
   fun getFkgOntologyClassPrefixed(name: String) = fkgOntologyPrefix + ":" + camelCase(true, name.replace(' ', '_'))
+
+  fun getFkgDataTypeUri(name: String) = prefixNames[fkgDataTypePrefix] + camelCase(true, name.replace(' ', '_'))
+
+  fun getFkgDataTypePrefixed(name: String) = fkgDataTypePrefix + ":" + camelCase(true, name.replace(' ', '_'))
+
+  fun getFkgMainUri(name: String) = prefixNames[fkgMainPrefix] + camelCase(true, name.replace(' ', '_'))
+
+  fun getFkgMainPrefixed(name: String) = fkgMainPrefix + ":" + camelCase(true, name.replace(' ', '_'))
 
   fun convertWikiUriToResourceUri(uri: String): String {
     if (uri.startsWith("http://fa.wikipedia.org/wiki/")
