@@ -20,8 +20,8 @@ object URIs {
 
   private val adjacentSpaceRegex = Regex("([\u00A0]|\\s)+")
 
-  val typeOfAllPropertiesPrefixed = "owl:ObjectProperty"
-  val typeOfAllNotMappedPropertiesPrefixed = "rdf:Property"
+  val defaultTypeOfAllPropertiesPrefixed = "owl:ObjectProperty"
+  val typeOfAnyPropertiesPrefixed = "rdf:Property"
   // "rdfs:Resource" equivalent to "owl:Thing" in OWL:Full
   val typeOfAllResourcesPrefixed = "owl:NamedIndividual"
   val typeOfAllClassesPrefixed = "owl:Class" // equivalent to "rdfs:Class" in OWL:Full
@@ -44,8 +44,8 @@ object URIs {
   val redirectPrefixed = "fkgo:wikiPageRedirects"
   val namePrefixed = "foaf:name"
 
-  val typeOfAllProperties: String
-  val typeOfAllNotMappedProperties: String
+  val defaultTypeOfOntologyProperties: String
+  val typeOfAnyProperties: String
   val typeOfAllResources: String
   val typeOfAllClasses: String
   val subClassOf: String
@@ -69,8 +69,8 @@ object URIs {
 
   init {
     reload()
-    typeOfAllProperties = prefixedToUri(typeOfAllPropertiesPrefixed)!!
-    typeOfAllNotMappedProperties = prefixedToUri(typeOfAllNotMappedPropertiesPrefixed)!!
+    defaultTypeOfOntologyProperties = prefixedToUri(defaultTypeOfAllPropertiesPrefixed)!!
+    typeOfAnyProperties = prefixedToUri(typeOfAnyPropertiesPrefixed)!!
     typeOfAllResources = prefixedToUri(typeOfAllResourcesPrefixed)!!
     typeOfAllClasses = prefixedToUri(typeOfAllClassesPrefixed)!!
     subClassOf = prefixedToUri(subClassOfPrefixed)!!
