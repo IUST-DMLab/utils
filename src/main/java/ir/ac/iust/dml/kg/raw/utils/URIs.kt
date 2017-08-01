@@ -14,6 +14,8 @@ object URIs {
   val fkgTablePrefix = "fkgl"
   val fkgRawTextPrefix = "fkgt"
 
+  val defaultContext = "http://fkg.iust.ac.ir/"
+
   private val adjacentSpaceRegex = Regex("([\u00A0]|\\s)+")
 
   val typeOfAllPropertiesPrefixed = "owl:ObjectProperty"
