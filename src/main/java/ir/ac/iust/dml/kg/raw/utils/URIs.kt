@@ -37,6 +37,7 @@ object URIs {
   val instanceOfPrefixed = "rdf:instanceOf"
   val disambiguatedFromPrefixed = "fkgo:wikiDisambiguatedFrom"
   val redirectPrefixed = "fkgo:wikiPageRedirects"
+  val namePrefixed = "foaf:name"
 
   val typeOfAllProperties: String
   val typeOfAllNotMappedProperties: String
@@ -56,6 +57,7 @@ object URIs {
   val instanceOf: String
   val disambiguatedFrom: String
   val redirect: String
+  val name: String
 
   init {
     reload()
@@ -77,6 +79,7 @@ object URIs {
     instanceOf = prefixedToUri(instanceOfPrefixed)!!
     disambiguatedFrom = prefixedToUri(disambiguatedFromPrefixed)!!
     redirect = prefixedToUri(redirectPrefixed)!!
+    name = prefixedToUri(namePrefixed)!!
   }
 
   fun reload() {
