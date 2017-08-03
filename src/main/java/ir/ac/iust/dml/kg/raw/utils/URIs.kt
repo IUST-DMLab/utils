@@ -43,6 +43,8 @@ object URIs {
   val disambiguatedFromPrefixed = "fkgo:wikiDisambiguatedFrom"
   val redirectPrefixed = "fkgo:wikiPageRedirects"
   val namePrefixed = "foaf:name"
+  val picturePrefixed = "fkgo:picture"
+  val abstractPrefixed = "fkgo:abstract"
 
   val defaultTypeOfOntologyProperties: String
   val typeOfAnyProperties: String
@@ -66,6 +68,8 @@ object URIs {
   val disambiguatedFrom: String
   val redirect: String
   val name: String
+  val picture: String
+  val abstract: String
 
   init {
     reload()
@@ -91,6 +95,8 @@ object URIs {
     disambiguatedFrom = prefixedToUri(disambiguatedFromPrefixed)!!
     redirect = prefixedToUri(redirectPrefixed)!!
     name = prefixedToUri(namePrefixed)!!
+    picture = prefixedToUri(picturePrefixed)!!
+    abstract = prefixedToUri(abstractPrefixed)!!
   }
 
   fun reload() {
