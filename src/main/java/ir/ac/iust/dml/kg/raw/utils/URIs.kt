@@ -46,6 +46,7 @@ object URIs {
   val picturePrefixed = "fkgo:picture"
   val abstractPrefixed = "fkgo:abstract"
 
+  val fkgOntologyPrefixUrl: String
   val defaultTypeOfOntologyProperties: String
   val typeOfAnyProperties: String
   val typeOfAllResources: String
@@ -73,6 +74,7 @@ object URIs {
 
   init {
     reload()
+    fkgOntologyPrefixUrl = prefixedToUri(fkgOntologyPrefix + ":")!!
     defaultTypeOfOntologyProperties = prefixedToUri(defaultTypeOfAllPropertiesPrefixed)!!
     typeOfAnyProperties = prefixedToUri(typeOfAnyPropertiesPrefixed)!!
     typeOfAllResources = prefixedToUri(typeOfAllResourcesPrefixed)!!
@@ -144,6 +146,8 @@ object URIs {
   fun getFkgOntologyPropertyUri(name: String) = prefixNames[fkgOntologyPrefix] + camelCase(false, name.replace(' ', '_'))
 
   fun getFkgOntologyPropertyPrefixed(name: String) = fkgOntologyPrefix + ":" + camelCase(false, name.replace(' ', '_'))
+
+  fun getFkgOntologyNameFromUri(url: String) = url.substring(fkgOntologyPrefixUrl.length)
 
   fun getFkgOntologyClassUri(name: String) = prefixNames[fkgOntologyPrefix] + camelCase(true, name.replace(' ', '_'))
 
