@@ -139,7 +139,9 @@ object URIs {
 
   fun getFkgRawTextPrefixed(name: String) = fkgRawTextPrefix + ":" + name.replace(' ', '_')
 
-  fun getFkgResourceUri(name: String) = prefixNames[fkgResourcePrefix] + name.replace(adjacentSpaceRegex, "_")
+  fun getFkgResourceUri(name: String) = prefixNames[fkgResourcePrefix] +
+      if (name.contains("/")) name.substringAfterLast("/").replace(adjacentSpaceRegex, "_")
+      else name.replace(adjacentSpaceRegex, "_")
 
   fun getFkgResourcePrefixed(name: String) = fkgResourcePrefix + ":" + name.replace(' ', '_')
 
