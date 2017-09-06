@@ -1,13 +1,14 @@
 package ir.ac.iust.dml.kg.raw.utils
 
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import nu.studer.java.util.OrderedProperties
 import org.slf4j.LoggerFactory
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
+import java.io.*
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import kotlin.reflect.KClass
 
 
 object ConfigReader {
@@ -44,10 +45,10 @@ object ConfigReader {
 
   fun getConfig(keyValues: Map<String, Any>): OrderedProperties {
     val configPath =
-       if (Files.exists(Paths.get("/srv/.pkg/config.properties")))
-         Paths.get("/srv/.pkg/config.properties")
-       else
-         Paths.get(System.getProperty("user.home")).resolve(".pkg").resolve("config.properties")
+        if (Files.exists(Paths.get("/srv/.pkg/config.properties")))
+          Paths.get("/srv/.pkg/config.properties")
+        else
+          Paths.get(System.getProperty("user.home")).resolve(".pkg").resolve("config.properties")
 
     Files.createDirectories(configPath.parent)
 
@@ -81,11 +82,44 @@ object ConfigReader {
   fun getPath(string: String): Path {
     if (string.startsWith('/')) return Paths.get(string)
     var s =
-       if (string.startsWith('~'))
-         string.replace("~", System.getProperty("user.home")!!)
-       else string
+        if (string.startsWith('~'))
+          string.replace("~", System.getProperty("user.home")!!)
+        else string
     if (s.contains("/")) return Paths.get(s)
     s = s.replace('/', File.separatorChar)
     return Paths.get(s)
+  }
+
+  fun <T> readConfigObject(classPathSample: String, clazz: Class<T>): T {
+    val configPath =
+        if (Files.exists(Paths.get("/srv/.pkg/$classPathSample")))
+          Paths.get("/srv/.pkg/$classPathSample")
+        else
+          Paths.get(System.getProperty("user.home")).resolve(".pkg").resolve(classPathSample)
+    if (!Files.exists(configPath))
+      Files.copy(this::class.java.classLoader.getResourceAsStream(classPathSample), configPath)
+    return readJson(configPath, clazz)
+  }
+
+  val gson = Gson()
+
+  fun <T : Any> readJson(path: Path, clazz: KClass<T>)
+      = gson.fromJson<T>(BufferedReader(InputStreamReader(FileInputStream(path.toFile()), "UTF-8")), clazz.java)
+
+  fun <T> readJson(path: Path, clazz: Class<T>)
+      = gson.fromJson<T>(BufferedReader(InputStreamReader(FileInputStream(path.toFile()), "UTF-8")), clazz)
+
+  @Suppress("UNCHECKED_CAST", "Unused")
+  fun <T> readListJson(path: Path): List<T> {
+    val token = object : TypeToken<List<T>>() {}.type
+    return gson.fromJson<List<T>>(BufferedReader(InputStreamReader(FileInputStream(path.toFile()), "UTF-8")),
+        token)
+  }
+
+  @Suppress("UNCHECKED_CAST", "Unused")
+  fun <K, V> readMapJson(path: Path): Map<K, V> {
+    val token = object : TypeToken<Map<K, V>>() {}.type
+    return gson.fromJson<Map<K, V>>(BufferedReader(InputStreamReader(FileInputStream(path.toFile()), "UTF-8")),
+        token)
   }
 }

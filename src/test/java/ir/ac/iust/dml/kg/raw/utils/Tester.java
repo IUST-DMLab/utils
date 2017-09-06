@@ -29,7 +29,7 @@ public class Tester {
     Files.createDirectories(p.resolve("folder"));
     if (!Files.exists(p.resolve("folder").resolve("3.txt"))) Files.createFile(p.resolve("folder").resolve("3.txt"));
 
-    List<Path> pathList = PathWalker.INSTANCE.getPath(p, null);
+    List<Path> pathList = PathWalker.INSTANCE.getPath(p);
     assert pathList.size() == 3;
 
     pathList = PathWalker.INSTANCE.getPath(p, new Regex("\\d+.txt"));
@@ -100,7 +100,7 @@ public class Tester {
      * }
      */
     final Path tripleFolder = ConfigReader.INSTANCE.getPath("test.triple.folder", "~/pkg/test/triples");
-    final List<Path> files = PathWalker.INSTANCE.getPath(tripleFolder, null);
+    final List<Path> files = PathWalker.INSTANCE.getPath(tripleFolder);
     for (Path p : files)
       try (TripleJsonFileReader reader = new TripleJsonFileReader(p)) {
         while (reader.hasNext()) {
