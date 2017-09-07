@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package ir.ac.iust.dml.kg.raw.utils
 
 import com.google.gson.Gson
@@ -9,7 +11,6 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.reflect.KClass
-
 
 object ConfigReader {
 
@@ -43,6 +44,7 @@ object ConfigReader {
     return getConfig(map)
   }
 
+  @Suppress("MemberVisibilityCanPrivate")
   fun getConfig(keyValues: Map<String, Any>): OrderedProperties {
     val configPath =
         if (Files.exists(Paths.get("/srv/.pkg/config.properties")))
@@ -90,6 +92,10 @@ object ConfigReader {
     return Paths.get(s)
   }
 
+  fun <T : Any> readConfigObject(classPathSample: String, clazz: KClass<T>) =
+      ConfigReader.readConfigObject(classPathSample, clazz.java)
+
+  @Suppress("MemberVisibilityCanPrivate")
   fun <T> readConfigObject(classPathSample: String, clazz: Class<T>): T {
     val configPath =
         if (Files.exists(Paths.get("/srv/.pkg/$classPathSample")))
@@ -104,19 +110,20 @@ object ConfigReader {
   val gson = Gson()
 
   fun <T : Any> readJson(path: Path, clazz: KClass<T>)
-      = gson.fromJson<T>(BufferedReader(InputStreamReader(FileInputStream(path.toFile()), "UTF-8")), clazz.java)
+      = gson.fromJson<T>(BufferedReader(InputStreamReader(FileInputStream(path.toFile()), "UTF-8")), clazz.java)!!
 
+  @Suppress("MemberVisibilityCanPrivate")
   fun <T> readJson(path: Path, clazz: Class<T>)
-      = gson.fromJson<T>(BufferedReader(InputStreamReader(FileInputStream(path.toFile()), "UTF-8")), clazz)
+      = gson.fromJson<T>(BufferedReader(InputStreamReader(FileInputStream(path.toFile()), "UTF-8")), clazz)!!
 
-  @Suppress("UNCHECKED_CAST", "Unused")
+  @Suppress("UNCHECKED_CAST")
   fun <T> readListJson(path: Path): List<T> {
     val token = object : TypeToken<List<T>>() {}.type
     return gson.fromJson<List<T>>(BufferedReader(InputStreamReader(FileInputStream(path.toFile()), "UTF-8")),
         token)
   }
 
-  @Suppress("UNCHECKED_CAST", "Unused")
+  @Suppress("UNCHECKED_CAST")
   fun <K, V> readMapJson(path: Path): Map<K, V> {
     val token = object : TypeToken<Map<K, V>>() {}.type
     return gson.fromJson<Map<K, V>>(BufferedReader(InputStreamReader(FileInputStream(path.toFile()), "UTF-8")),
