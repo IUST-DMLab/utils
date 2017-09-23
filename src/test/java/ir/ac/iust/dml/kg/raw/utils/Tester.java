@@ -48,7 +48,8 @@ public class Tester {
   @Test
   public void languageChecker() {
     assert LanguageChecker.INSTANCE.isEnglish("I'm Majid");
-    assert !LanguageChecker.INSTANCE.isEnglish("من مجید یا Majid هستم.");
+    assert LanguageChecker.INSTANCE.isEnglish("من مجید یا Majid هستم.");
+    assert !LanguageChecker.INSTANCE.isEnglish("من مجید هستم.");
   }
 
   @Test
