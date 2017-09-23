@@ -1,3 +1,9 @@
+/*
+ * Farsi Knowledge Graph Project
+ * Iran University of Science and Technology (Year 2017)
+ * Developed by Majid Asgari.
+ */
+
 @file:Suppress("unused")
 
 package ir.ac.iust.dml.kg.raw.utils
