@@ -51,6 +51,7 @@ object URIs {
   val namePrefixed = "foaf:name"
   val picturePrefixed = "fkgo:picture"
   val abstractPrefixed = "fkgo:abstract"
+  val wikiCategoryPrefixed = "fkgo:categoryMember"
 
   val fkgOntologyPrefixUrl: String
   val defaultTypeOfOntologyProperties: String
@@ -77,6 +78,7 @@ object URIs {
   val name: String
   val picture: String
   val abstract: String
+  val categoryMember: String
 
   init {
     reload()
@@ -105,6 +107,7 @@ object URIs {
     name = prefixedToUri(namePrefixed)!!
     picture = prefixedToUri(picturePrefixed)!!
     abstract = prefixedToUri(abstractPrefixed)!!
+    categoryMember = prefixedToUri(wikiCategoryPrefixed)!!
   }
 
   fun reload() {
