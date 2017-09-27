@@ -15,6 +15,7 @@ object URIs {
 
   val fkgMainPrefix = "fkg"
   val fkgResourcePrefix = "fkgr"
+  val fkgCategoryPrefix = "fkgc"
   val fkgOntologyPrefix = "fkgo"
   val fkgDataTypePrefix = "fkgd"
   val fkgNotMappedPropertyPrefix = "fkgp"
@@ -30,11 +31,13 @@ object URIs {
   val typeOfAnyPropertiesPrefixed = "rdf:Property"
   // "rdfs:Resource" equivalent to "owl:Thing" in OWL:Full
   val typeOfAllResourcesPrefixed = "owl:NamedIndividual"
+  val typeOfAllCategoriesPrefixed = "skos:Concept"
   val typeOfAllClassesPrefixed = "owl:Class" // equivalent to "rdfs:Class" in OWL:Full
   val subClassOfPrefixed = "rdfs:subClassOf"
   val commentPrefixed = "rdfs:comment"
   val classTreePrefixed = "fkgo:classTree"
   val labelPrefixed = "rdfs:label"
+  val preferedLabelPrefixed = "skos:prefLabel"
   val propertyDomainPrefixed = "rdfs:domain"
   val propertyAutoDomainPrefixed = "fkgo:autoDomain"
   val propertyRangePrefixed = "rdfs:range"
@@ -51,17 +54,19 @@ object URIs {
   val namePrefixed = "foaf:name"
   val picturePrefixed = "fkgo:picture"
   val abstractPrefixed = "fkgo:abstract"
-  val wikiCategoryPrefixed = "fkgo:categoryMember"
+  val wikiCategoryPrefixed = "dct:subject"
 
   val fkgOntologyPrefixUrl: String
   val defaultTypeOfOntologyProperties: String
   val typeOfAnyProperties: String
   val typeOfAllResources: String
+  val typeOfAllCategories: String
   val typeOfAllClasses: String
   val subClassOf: String
   val comment: String
   val classTree: String
   val label: String
+  val preferedLabel: String
   val propertyDomain: String
   val propertyAutoDomain: String
   val propertyRange: String
@@ -86,11 +91,13 @@ object URIs {
     defaultTypeOfOntologyProperties = prefixedToUri(defaultTypeOfAllPropertiesPrefixed)!!
     typeOfAnyProperties = prefixedToUri(typeOfAnyPropertiesPrefixed)!!
     typeOfAllResources = prefixedToUri(typeOfAllResourcesPrefixed)!!
+    typeOfAllCategories = prefixedToUri(typeOfAllCategoriesPrefixed)!!
     typeOfAllClasses = prefixedToUri(typeOfAllClassesPrefixed)!!
     subClassOf = prefixedToUri(subClassOfPrefixed)!!
     comment = prefixedToUri(commentPrefixed)!!
     classTree = prefixedToUri(classTreePrefixed)!!
     label = prefixedToUri(labelPrefixed)!!
+    preferedLabel = prefixedToUri(preferedLabelPrefixed)!!
     propertyDomain = prefixedToUri(propertyDomainPrefixed)!!
     propertyAutoDomain = prefixedToUri(propertyAutoDomainPrefixed)!!
     propertyRange = prefixedToUri(propertyRangePrefixed)!!
@@ -152,7 +159,13 @@ object URIs {
       if (name.contains("/")) name.substringAfterLast("/").replace(adjacentSpaceRegex, "_")
       else name.replace(adjacentSpaceRegex, "_")
 
+  fun getFkgCategoryUri(name: String) = prefixNames[fkgCategoryPrefix] +
+      if (name.contains("/")) name.substringAfterLast("/").replace(adjacentSpaceRegex, "_")
+      else name.replace(adjacentSpaceRegex, "_")
+
   fun getFkgResourcePrefixed(name: String) = fkgResourcePrefix + ":" + name.replace(' ', '_')
+
+  fun getFkgCategoryPrefixed(name: String) = fkgCategoryPrefix + ":" + name.replace(' ', '_')
 
   fun getFkgOntologyPropertyUri(name: String) = prefixNames[fkgOntologyPrefix] + camelCase(false, name.replace(' ', '_'))
 
@@ -176,6 +189,13 @@ object URIs {
     if (uri.startsWith("http://fa.wikipedia.org/wiki/")
         || uri.startsWith("fa.wikipedia.org/wiki/"))
       return prefixNames[fkgResourcePrefix] + uri.substringAfterLast("/")
+    return uri
+  }
+
+  fun convertWikiUriToCategoryUri(uri: String): String {
+    if (uri.startsWith("http://fa.wikipedia.org/wiki/")
+        || uri.startsWith("fa.wikipedia.org/wiki/"))
+      return prefixNames[fkgCategoryPrefix] + uri.substringAfterLast("/")
     return uri
   }
 
