@@ -8,7 +8,7 @@ package ir.ac.iust.dml.kg.raw.utils
 
 object LanguageChecker {
   private val englishRegex = Regex("[\\w \\d'-:;.,]+")
-  private val persianRegex = Regex("[۱۲۳۴۵۶۷۸۹۰؛،«»؟–آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی \\d'-:;.,]+")
+  private val persianRegex = Regex("([۱۲۳۴۵۶۷۸۹۰؛،«»؟–ءيئؤًٌٍَُِّْةأإكٰٔٔآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی\\u200C \\d'-:;.,]+.*)+")
   fun isEnglish(text: String) = !persianRegex.matches(text)
   fun isPersian(text: String) = persianRegex.matches(text)
 
