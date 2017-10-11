@@ -135,8 +135,9 @@ object URIs {
   }
 
   fun prefixedToUri(source: String?): String? {
-    if (source == null || !source.contains(':') || source.startsWith("http") || source.endsWith(":")) return source
+    if (source == null || !source.contains(':') || source.startsWith("http")) return source
     val splits = source.split(":")
+    if (source.endsWith(":")) return prefixNames[splits[0]]
     var address = prefixNames[splits[0]]
     if (address != null && !address.startsWith("http://") && !address.startsWith("https://"))
       address = "http://" + address
