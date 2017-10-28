@@ -126,8 +126,8 @@ object URIs {
     }
   }
 
-  fun replaceAllPrefixesInString(text: String): String {
-    var result = text
+  fun replaceAllPrefixesInString(text: String?): String? {
+    var result = text ?: return null
     prefixAddresses.keys.asSequence()
         .filter { result.contains(it) }
         .forEach { result = result.replace(it, prefixAddresses[it]!! + ":") }
