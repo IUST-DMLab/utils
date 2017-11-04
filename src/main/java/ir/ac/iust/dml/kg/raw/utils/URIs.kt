@@ -23,7 +23,7 @@ object URIs {
   val fkgTablePrefix = "fkgl"
   val fkgRawTextPrefix = "fkgt"
 
-  val defaultContext = "http://fkg.iust.ac.ir/"
+  val defaultContext: String
 
   private val adjacentSpaceRegex = Regex("([\u00A0]|\\s)+")
 
@@ -87,6 +87,7 @@ object URIs {
 
   init {
     reload()
+    defaultContext = prefixedToUri(fkgMainPrefix + ":")!!
     fkgOntologyPrefixUrl = prefixedToUri(fkgOntologyPrefix + ":")!!
     defaultTypeOfOntologyProperties = prefixedToUri(defaultTypeOfAllPropertiesPrefixed)!!
     typeOfAnyProperties = prefixedToUri(typeOfAnyPropertiesPrefixed)!!
