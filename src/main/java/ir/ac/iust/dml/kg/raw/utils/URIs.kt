@@ -55,7 +55,11 @@ object URIs {
   val picturePrefixed = "fkgo:picture"
   val abstractPrefixed = "fkgo:abstract"
   val wikiCategoryPrefixed = "dct:subject"
+  val relatedPredicatesPrefixed = "fkgo:relatedPredicates"
+  val relatedPredicatesClassPrefixed = "fkgo:RelatedPredicates"
+  val mainPredicatePrefixed = "fkgo:mainPredicate"
 
+  val fkgMainPrefixUrl: String
   val fkgOntologyPrefixUrl: String
   val defaultTypeOfOntologyProperties: String
   val typeOfAnyProperties: String
@@ -84,10 +88,14 @@ object URIs {
   val picture: String
   val abstract: String
   val categoryMember: String
+  val relatedPredicates: String
+  val relatedPredicatesClass: String
+  val mainPredicate: String
 
   init {
     reload()
     defaultContext = prefixedToUri(fkgMainPrefix + ":")!!
+    fkgMainPrefixUrl = prefixedToUri(fkgMainPrefix + ":")!!
     fkgOntologyPrefixUrl = prefixedToUri(fkgOntologyPrefix + ":")!!
     defaultTypeOfOntologyProperties = prefixedToUri(defaultTypeOfAllPropertiesPrefixed)!!
     typeOfAnyProperties = prefixedToUri(typeOfAnyPropertiesPrefixed)!!
@@ -116,6 +124,9 @@ object URIs {
     picture = prefixedToUri(picturePrefixed)!!
     abstract = prefixedToUri(abstractPrefixed)!!
     categoryMember = prefixedToUri(wikiCategoryPrefixed)!!
+    relatedPredicates = prefixedToUri(relatedPredicatesPrefixed)!!
+    relatedPredicatesClass = prefixedToUri(relatedPredicatesClassPrefixed)!!
+    mainPredicate = prefixedToUri(mainPredicatePrefixed)!!
   }
 
   fun reload() {
