@@ -8,6 +8,7 @@ package ir.ac.iust.dml.kg.raw.utils
 
 import java.util.*
 
+@Suppress("MemberVisibilityCanPrivate")
 object URIs {
 
   val prefixNames = mutableMapOf<String, String>()
@@ -129,7 +130,7 @@ object URIs {
     mainPredicate = prefixedToUri(mainPredicatePrefixed)!!
   }
 
-  fun reload() {
+  private fun reload() {
     val prefixServices = Properties()
     prefixServices.load(this.javaClass.getResourceAsStream("/prefixes.properties"))
     prefixServices.keys.forEach {
