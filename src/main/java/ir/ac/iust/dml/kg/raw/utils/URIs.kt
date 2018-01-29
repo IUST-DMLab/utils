@@ -59,6 +59,7 @@ object URIs {
   val relatedPredicatesPrefixed = "fkgo:relatedPredicates"
   val relatedPredicatesClassPrefixed = "fkgo:RelatedPredicates"
   val mainPredicatePrefixed = "fkgo:mainPredicate"
+  val sameAsPrefixed = "owl:sameAs"
 
   val fkgMainPrefixUrl: String
   val fkgOntologyPrefixUrl: String
@@ -92,6 +93,7 @@ object URIs {
   val relatedPredicates: String
   val relatedPredicatesClass: String
   val mainPredicate: String
+  val sameAs: String
 
   init {
     reload()
@@ -128,6 +130,7 @@ object URIs {
     relatedPredicates = prefixedToUri(relatedPredicatesPrefixed)!!
     relatedPredicatesClass = prefixedToUri(relatedPredicatesClassPrefixed)!!
     mainPredicate = prefixedToUri(mainPredicatePrefixed)!!
+    sameAs = prefixedToUri(sameAsPrefixed)!!
   }
 
   private fun reload() {
