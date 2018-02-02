@@ -10,5 +10,5 @@ enum class Module {
   wiki, mapper_auto_labeling, web_table_extractor,
   raw_mapper_entity_adder, raw_dependency_pattern, raw_rule_based,
   raw_distant_supervision_logistic, raw_distant_supervision_deep,
-  manual, expert, similar
+  manual, expert, sameAs
 }
