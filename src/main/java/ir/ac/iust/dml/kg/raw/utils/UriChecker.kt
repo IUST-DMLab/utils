@@ -19,14 +19,16 @@ object UriChecker {
         URI(uri)
         true
       } catch (e: MalformedURLException) {
-        System.err.printf("Has not valid url $uri")
-        false
-      } catch (e: UnknownFormatConversionException) {
-        System.err.printf("Has not valid url $uri")
+        try {
+          System.err.println("Has not valid url $uri")
+        } catch (ignored: UnknownFormatConversionException) {
+        }
         false
       } catch (e: URISyntaxException) {
-        System.err.printf("Has not valid uri $uri")
+        try {
+          System.err.println("Has not valid uri $uri")
+        } catch (ignored: UnknownFormatConversionException) {
+        }
         false
       }
-
 }
