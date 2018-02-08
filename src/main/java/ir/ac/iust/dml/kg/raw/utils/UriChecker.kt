@@ -4,6 +4,7 @@ import java.net.MalformedURLException
 import java.net.URI
 import java.net.URISyntaxException
 import java.net.URL
+import java.util.*
 
 @Suppress("MemberVisibilityCanPrivate", "unused")
 object UriChecker {
@@ -18,6 +19,9 @@ object UriChecker {
         URI(uri)
         true
       } catch (e: MalformedURLException) {
+        System.err.printf("Has not valid url $uri")
+        false
+      } catch (e: UnknownFormatConversionException) {
         System.err.printf("Has not valid url $uri")
         false
       } catch (e: URISyntaxException) {
